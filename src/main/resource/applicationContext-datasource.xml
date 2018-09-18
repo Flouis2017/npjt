@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="order" value="2" />
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="locations">
+            <list>
+                <value>classpath:datasource.properties</value>
+            </list>
+        </property>
+        <property name="fileEncoding" value="utf-8" />
+    </bean>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${db.driverClassName}" />
+        <property name="url" value="${db.url}" />
+        <property name="username" value="${db.username}" />
+        <property name="password" value="${db.password}" />
+        <property name="initialSize" value="${db.initialSize}"/>
+        <property name="maxActive" value="${db.maxActive}"/>
+        <property name="maxIdle" value="${db.maxIdle}"/>
+        <property name="minIdle" value="${db.minIdle}"/>
+        <property name="maxWait" value="${db.maxWait}"/>
+        <property name="defaultAutoCommit" value="${db.defaultAutoCommit}"/>
+        <property name="minEvictableIdleTimeMillis" value="${db.minEvictableIdleTimeMillis}"/>
+        <property name="timeBetweenEvictionRunsMillis" value="40000"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="validationQuery" value="SELECT 1 FROM dual"/>
+    </bean>
+
+
+</beans>
