@@ -12,7 +12,7 @@
 
     <import resource="applicationContext-datasource.xml" />
 
-    <!-- 配置NamedParameterJdbcTemplate组件 -->
+    <!-- config NamedParameterJdbcTemplate bean -->
     <bean class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate" id="namedParameterJdbcTemplate">
         <constructor-arg ref="dataSource"/>
     </bean>
