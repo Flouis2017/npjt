@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,6 +109,14 @@ public class SqlUtil {
      */
     public int update(String sql){
         return this.update(sql, new HashMap<>());
+    }
+
+
+    /**
+     * @description update by an pojo
+     */
+    public int updateByPojo(String sql, Object object){
+        return this.npjt.update(sql, new BeanPropertySqlParameterSource(object));
     }
 
 

@@ -68,11 +68,34 @@ public class NpjtTest {
     }
 
     @Test
+    public void testUpdateByPojo(){
+        System.out.println("Test update by pojo");
+        Integer id = 3;
+        StringBuffer sql = new StringBuffer();
+        sql.setLength(0);
+        sql.append(" select * from test_user where id = :id ");
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", id);
+        // get an pojo by id:
+        User user = this.sqlUtil.queryForObject(sql.toString(), paramMap, User.class);
+        user.setGender(1);
+        user.setAge(22);
+        sql.setLength(0);
+        sql.append(" update test_user set gender = :gender, age = :age where id = :id ");
+        int cnt = this.sqlUtil.updateByPojo(sql.toString(), user);
+        if (cnt > 0){
+            System.out.println("更新成功！");
+        } else {
+            System.out.println("更新失败！");
+        }
+    }
+
+    @Test
     public void testDelete(){
         System.out.println("Test delete operation");
         StringBuffer sql = new StringBuffer();
         sql.setLength(0);
-        sql.append(" delete from test_user where name like '%Tama%' ");
+        sql.append(" delete from test_user where name like '%test%' ");
         int cnt = this.sqlUtil.update(sql.toString());
         System.out.println("删除 " + cnt + " 条记录");
     }
@@ -125,7 +148,6 @@ public class NpjtTest {
         Map<String, Object> resultMap = this.sqlUtil.queryForMap(sql.toString());
         System.out.println(resultMap);
     }
-
 
     @Test
     public void testQueryForObjectList(){
@@ -185,6 +207,16 @@ public class NpjtTest {
         sql.append(" select * from test_user ");
         List<User> userList = this.sqlUtil.queryForObjectList(sql.toString(), new HashMap<>(), new UserRowMapper());
         System.out.println(userList);
+    }
+
+    @Test
+    public void testQueryForList(){
+        System.out.println("Test query for map list");
+        StringBuffer sql = new StringBuffer();
+        sql.setLength(0);
+        sql.append(" select * from test_user ");
+        List<Map<String, Object>> list = this.sqlUtil.queryForList(sql.toString());
+        System.out.println(list);
     }
 
 }
