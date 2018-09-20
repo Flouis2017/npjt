@@ -51,14 +51,15 @@ public class NpjtTest {
         StringBuffer sql = new StringBuffer();
         sql.setLength(0);
         sql.append(" update test_user set gender = :gender, age = :age, home_address = :homeAddress, ")
-           .append(" create_time = :createTime, update_time = :updateTime ");
+           .append(" create_time = :createTime, update_time = :updateTime where id = :id ");
 
         Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", 3);
         paramMap.put("gender", 1);
         paramMap.put("age", 24);
-        paramMap.put("homeAddress", "福建省厦门市湖里区");
-        paramMap.put("createTime", "2018-09-19 10:29:12");
-        paramMap.put("updateTime", "2018-09-19 10:30:15");
+        paramMap.put("homeAddress", "日本东京荒川区町屋4-6-1");
+        paramMap.put("createTime", "2018-09-19 20:11:37");
+        paramMap.put("updateTime", "2018-09-19 20:11:37");
         int cnt = this.sqlUtil.update(sql.toString(), paramMap);
         if (cnt > 0){
             System.out.println("更新成功！");
