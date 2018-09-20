@@ -1,10 +1,61 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Test</title>
+<meta charset="UTF-8">
+<title>Test Page</title>
+<style type="text/css">
+    #exportDiv{
+        height: 100px;
+        border: 2px solid cadetblue;
+        padding: 10px;
+    }
+    .exportSpan{
+        margin-right: 10px;
+        margin-left: 2px;
+    }
+    button{
+        cursor: pointer;
+    }
+
+</style>
+<script type="text/javascript" src="static/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="static/js/common.js"></script>
+<script type="text/javascript">
+
+    $(function() {
+        $("#exportBtn").click(function() {
+            alert("Export!");
+        });
+    });
+
+</script>
 </head>
 <body>
 
-<h2>This is test HTML</h2>
+    <h2>Welcome to Test Page!</h2>
+
+    <div id="exportDiv">
+        <span class="exportSpan">
+            <label>Username:</label>
+            <input id="username" type="text" placeholder="Please input username" />
+        </span>
+
+        <span class="exportSpan">
+            <label>Gender:</label>
+            <select id="gender" >
+                <option value="0">Please choose</option>
+                <option value="1">Male</option>
+                <option value="2">Female</option>
+            </select>
+        </span>
+
+        <span class="exportSpan">
+            <label>Age:</label>
+            <input id="age" type="text" placeholder="Please input age" />
+        </span>
+
+        <button id="exportBtn">Export</button>
+    </div>
 
 </body>
 </html>

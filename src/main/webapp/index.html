@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Index</title>
+<style type="text/css">
+    button{
+        cursor: pointer;
+    }
+
+</style>
+<script type="text/javascript" src="static/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="static/js/common.js"></script>
+<script type="text/javascript">
+
+
+    $(function() {
+        $("#toExportBtn").click(function() {
+            window.location.href = getContextPath() + "/testExport";
+            // window.open(getContextPath() + "/testExport");
+        });
+    });
+
+</script>
+</head>
+<body>
+
+    <h2>This is Index Page</h2>
+    <br>
+    <button id="toExportBtn" >Go To Export</button>
+
+</body>
+</html>
