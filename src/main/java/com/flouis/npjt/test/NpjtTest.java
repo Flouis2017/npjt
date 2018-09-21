@@ -54,12 +54,12 @@ public class NpjtTest {
            .append(" create_time = :createTime, update_time = :updateTime where id = :id ");
 
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("id", 3);
-        paramMap.put("gender", 1);
-        paramMap.put("age", 24);
-        paramMap.put("homeAddress", "日本东京荒川区町屋4-6-1");
-        paramMap.put("createTime", "2018-09-19 20:11:37");
-        paramMap.put("updateTime", "2018-09-19 20:11:37");
+        paramMap.put("id", 4);
+        paramMap.put("gender", 2);
+        paramMap.put("age", 21);
+        paramMap.put("homeAddress", null);
+        paramMap.put("createTime", "2018-09-21 22:12:34");
+        paramMap.put("updateTime", "2018-09-21 22:12:34");
         int cnt = this.sqlUtil.update(sql.toString(), paramMap);
         if (cnt > 0){
             System.out.println("更新成功！");
