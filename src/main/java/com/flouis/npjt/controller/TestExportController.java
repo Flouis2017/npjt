@@ -3,10 +3,12 @@ package com.flouis.npjt.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.flouis.npjt.common.ServerResult;
+import com.flouis.npjt.service.ITestExportService;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 //import net.sf.json.JSONObject;
 //import net.sf.json.JSONArray;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +31,9 @@ import java.util.Map;
 @RequestMapping("/testExport")
 public class TestExportController {
 
+    @Autowired
+    private ITestExportService iTestExportService;
+
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String toTestPage(){
@@ -38,8 +43,10 @@ public class TestExportController {
     @RequestMapping(value = "/exportExcel", method = RequestMethod.POST)
     @ResponseBody
     public ServerResult exportExcel(HttpServletRequest request){
-        System.out.println(request.getParameter("paramsStr"));
-        ServerResult serverResult = ServerResult.success("Export Failed!");
+//      System.out.println(request.getParameter("paramsStr")); // {"name":"林田惠","gender":"","age":""}
+//      parse param string from frontend:
+        Map filterConditions = JSONObject.parseObject( request.getParameter("paramsStr") );
+        ServerResult serverResult = this.iTestExportService.exportExcel(filterConditions);
         return serverResult;
     }
 

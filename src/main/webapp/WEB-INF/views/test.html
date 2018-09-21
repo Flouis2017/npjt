@@ -47,9 +47,9 @@
         };
         this.acquireQueryConditions = function() {
             var queryConditions = {
-                name      : $("#name").val(),
-                gender    : $("#gender").val(),
-                age       : $("#age").val()
+                name      : $.trim( $("#name").val() ),
+                gender    : $.trim( $("#gender").val() ),
+                age       : $.trim( $("#age").val() )
             };
             return queryConditions;
         };
@@ -77,7 +77,7 @@
         <span class="exportSpan">
             <label>Gender:</label>
             <select id="gender" >
-                <option value="0">Please choose</option>
+                <option value="">Please choose</option>
                 <option value="1">Male</option>
                 <option value="2">Female</option>
             </select>
