@@ -22,10 +22,44 @@
 <script type="text/javascript" src="static/js/common.js"></script>
 <script type="text/javascript">
 
+
+    var User = function(){
+        this.exportExcel = function(){
+            $("#exportBtn").click(function() {
+                var url     = $contextPath + "/testExport/exportExcel";
+                var paramsStr  = JSON.stringify(user.acquireQueryConditions());
+                console.log(paramsStr);
+                $.ajax({
+                    url         : url,
+                    type        : "POST",
+                    dataType    : "json",
+                    data        : {paramsStr:paramsStr},
+                    success     : function(res) {
+                        console.log(res);
+                        alert(res.msg);
+                    },
+                    error       : function(e){
+                        alert("Occured error, please try again later.");
+                    }
+
+                });
+            });
+        };
+        this.acquireQueryConditions = function() {
+            var queryConditions = {
+                name      : $("#name").val(),
+                gender    : $("#gender").val(),
+                age       : $("#age").val()
+            };
+            return queryConditions;
+        };
+    };
+
+    var user;
+
     $(function() {
-        $("#exportBtn").click(function() {
-            alert("Export!");
-        });
+        user = new User();
+        user.exportExcel();
     });
 
 </script>
@@ -37,7 +71,7 @@
     <div id="exportDiv">
         <span class="exportSpan">
             <label>Username:</label>
-            <input id="username" type="text" placeholder="Please input username" />
+            <input id="name" type="text" placeholder="Please input Username" />
         </span>
 
         <span class="exportSpan">
