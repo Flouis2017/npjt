@@ -22,4 +22,8 @@ public class StringTool {
         return false;
     }
 
+    public static String toString(Object obj){
+        return String.valueOf(obj);
+    }
+
 }

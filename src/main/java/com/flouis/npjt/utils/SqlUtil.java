@@ -31,6 +31,7 @@ public class SqlUtil {
     public <T> T queryForObject(String sql, Map<String, ?> paramMap, Class<T> requiredType){
         Object obj = null;
         try{
+
             obj = this.npjt.queryForObject(sql, paramMap, new BeanPropertyRowMapper<>(requiredType));
         } catch (Exception e){
             System.out.println("Exception: " + e.getMessage());
@@ -92,6 +93,7 @@ public class SqlUtil {
      * @description return a List<Map> without paramMap
      */
     public List<Map<String, Object>> queryForList(String sql){
+//        logger.info("queryForList: " + sql);
         return this.queryForList(sql, new HashMap<>());
     }
 

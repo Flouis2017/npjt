@@ -3,11 +3,8 @@ package com.flouis.npjt.utils;
 import java.sql.Driver;
 
 import com.mysql.jdbc.AbandonedConnectionCleanupThread;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Enumeration;
@@ -20,7 +17,7 @@ import java.util.Enumeration;
 
 public class JdbcDriverListener implements ServletContextListener{
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) { }
@@ -33,15 +30,15 @@ public class JdbcDriverListener implements ServletContextListener{
             while (drivers.hasMoreElements()) {
                 d = drivers.nextElement();
                 DriverManager.deregisterDriver(d);
-                logger.info(" 消除数据库连接驱动 --> : Driver {} deregistered", d);
+//                logger.info(" 消除数据库连接驱动 --> : Driver {} deregistered", d);
             }
         } catch (SQLException ex) {
-            logger.error("Error: deregistering driver {} exceptionName:{} detail:{}", d, ex.getClass().getName(), ex.getMessage());
+//            logger.error("Error: deregistering driver {} exceptionName:{} detail:{}", d, ex.getClass().getName(), ex.getMessage());
         }finally {
             try {
                 AbandonedConnectionCleanupThread.shutdown();
             } catch (InterruptedException e) {
-                logger.error("Error: SEVERE problem cleaning up: " + e.getMessage());
+//                logger.error("Error: SEVERE problem cleaning up: " + e.getMessage());
             }
         }
     }
