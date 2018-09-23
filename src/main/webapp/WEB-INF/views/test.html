@@ -24,9 +24,9 @@
 
 
     var User = function(){
-        this.exportExcel = function(){
-            $("#exportBtn").click(function() {
-                var url     = $contextPath + "/testExport/exportExcel";
+        this.getData = function(){
+            $("#getDataBtn").click(function() {
+                var url     = $contextPath + "/test/getData";
                 var paramsStr  = JSON.stringify(user.acquireQueryConditions());
                 console.log(paramsStr);
                 $.ajax({
@@ -36,13 +36,21 @@
                     data        : {paramsStr:paramsStr},
                     success     : function(res) {
                         console.log(res);
-                        alert(res.msg);
                     },
                     error       : function(e){
                         alert("Occured error, please try again later.");
                     }
 
                 });
+            });
+        };
+        this.exportExcel = function() {
+            $("#exportBtn").click(function() {
+                var paramMap = user.acquireQueryConditions();
+                var hrefStr = $contextPath + "/test/exportExcel?name=" + paramMap.name +
+                    "&gender=" + paramMap.gender + "&age=" + paramMap.age;
+                location.href = hrefStr;
+                return false;
             });
         };
         this.acquireQueryConditions = function() {
@@ -56,11 +64,28 @@
     };
 
     var user;
-
     $(function() {
+        initPage();
+
         user = new User();
+        user.getData();
         user.exportExcel();
     });
+    
+    function initPage() {
+        $.ajax({
+            url         : $contextPath + "/test",
+            type        : "POST",
+            dataType    : "json",
+            success     : function(initData){
+                console.log(initData);
+            },
+            error       : function(e) {
+                alert("Init page occurs error!");
+            }
+
+        });
+    }
 
 </script>
 </head>
@@ -88,7 +113,11 @@
             <input id="age" type="text" placeholder="Please input age" />
         </span>
 
+        <button id="getDataBtn">Search</button>
+
         <button id="exportBtn">Export</button>
+
+
     </div>
 
 </body>

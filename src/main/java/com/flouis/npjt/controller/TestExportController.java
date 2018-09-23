@@ -4,11 +4,13 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.flouis.npjt.common.ServerResult;
 import com.flouis.npjt.service.ITestExportService;
+import com.flouis.npjt.vo.UserSearchVo;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 //import net.sf.json.JSONObject;
 //import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,7 +30,7 @@ import java.util.Map;
  **/
 
 @Controller
-@RequestMapping("/testExport")
+@RequestMapping("/test")
 public class TestExportController {
 
     @Autowired
@@ -40,19 +42,28 @@ public class TestExportController {
         return "test";
     }
 
-    @RequestMapping(value = "/exportExcel", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResult exportExcel(HttpServletRequest request){
+    public ServerResult initTestPage(){
+        return ServerResult.success("No more msg","This is original data!");
+    }
+
+    @RequestMapping(value = "/getData", method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResult getData(HttpServletRequest request){
 //      System.out.println(request.getParameter("paramsStr")); // {"name":"林田惠","gender":"","age":""}
 //      parse param string from frontend:
         Map filterConditions = JSONObject.parseObject( request.getParameter("paramsStr") );
-        ServerResult serverResult = this.iTestExportService.exportExcel(filterConditions);
+        ServerResult serverResult = this.iTestExportService.getData(filterConditions);
         return serverResult;
     }
 
 
-    @RequestMapping(value = "/exportExcel2", method = RequestMethod.POST)
-    public void exportExcel2(HttpServletRequest request, HttpServletResponse response){
+    /**
+     * @descriptino: show how to response a json Object without using @ResponseBody & @JsonSerialize
+     */
+    @RequestMapping(value = "/getData2", method = RequestMethod.POST)
+    public void getData2(HttpServletRequest request, HttpServletResponse response){
         System.out.println(request.getParameter("paramsStr"));
         Map<String, Object> resMap = Maps.newHashMap();
         resMap.put("success", false);
@@ -83,6 +94,22 @@ public class TestExportController {
             writer.flush();
             writer.close();
         }
+    }
+
+
+    @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<byte[]> exportExcel(HttpServletRequest request, UserSearchVo userSearchVo){
+        try{
+            Map filterConditions = Maps.newHashMap();
+            filterConditions.put("name", userSearchVo.getName());
+            filterConditions.put("gender", userSearchVo.getGender());
+            filterConditions.put("age", userSearchVo.getAge());
+            return this.iTestExportService.exportExcel(request, filterConditions);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
