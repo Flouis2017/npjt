@@ -30,7 +30,7 @@ import java.util.Map;
  **/
 
 @Controller
-@RequestMapping("/test")
+@RequestMapping("/testExport")
 public class TestExportController {
 
     @Autowired
@@ -39,7 +39,7 @@ public class TestExportController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String toTestPage(){
-        return "test";
+        return "testExport";
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)

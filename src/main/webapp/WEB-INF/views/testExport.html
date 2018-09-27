@@ -26,7 +26,7 @@
     var User = function(){
         this.getData = function(){
             $("#getDataBtn").click(function() {
-                var url     = $contextPath + "/test/getData";
+                var url     = $contextPath + "/testExport/getData";
                 var paramsStr  = JSON.stringify(user.acquireQueryConditions());
                 console.log(paramsStr);
                 $.ajax({
@@ -47,7 +47,7 @@
         this.exportExcel = function() {
             $("#exportBtn").click(function() {
                 var paramMap = user.acquireQueryConditions();
-                var hrefStr = $contextPath + "/test/exportExcel?name=" + paramMap.name +
+                var hrefStr = $contextPath + "/testExport/exportExcel?name=" + paramMap.name +
                     "&gender=" + paramMap.gender + "&age=" + paramMap.age;
                 location.href = hrefStr;
                 return false;
@@ -74,7 +74,7 @@
     
     function initPage() {
         $.ajax({
-            url         : $contextPath + "/test",
+            url         : $contextPath + "/testExport",
             type        : "POST",
             dataType    : "json",
             success     : function(initData){
