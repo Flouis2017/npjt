@@ -7,7 +7,6 @@
     button{
         cursor: pointer;
     }
-
 </style>
 <script type="text/javascript" src="static/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="static/js/common.js"></script>
@@ -19,6 +18,10 @@
             // window.open(getContextPath() + "/testExport");
         });
     });
+    
+    function toFileUploadOrDownload() {
+        location.href = $contextPath + "/fileOperation";
+    }
 
 </script>
 </head>
@@ -27,6 +30,11 @@
     <h2>This is Index Page</h2>
     <br>
     <button id="toExportBtn" >Go To Export</button>
+    <br>
+    <br>
+    <button id="toFileUploadOrDownloadBtn" onclick="toFileUploadOrDownload()" >
+        Go To Upload Or Download
+    </button>
 
 </body>
 </html>

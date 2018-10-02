@@ -18,11 +18,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
-public class NpjtSqlAspect {
+public class SqlInfoAspect {
 
-    private static final Logger logger = LoggerFactory.getLogger(NpjtSqlAspect.class);
+    private static final Logger logger = LoggerFactory.getLogger(SqlInfoAspect.class);
 
-    @Pointcut("execution(* com.flouis.npjt.utils.SqlUtil.*(..))")
+    @Pointcut("execution(* com.flouis.npjt.utils.*SqlUtil.*(..))")
     public void pointcut(){}
 
     @Before(value = "pointcut()")

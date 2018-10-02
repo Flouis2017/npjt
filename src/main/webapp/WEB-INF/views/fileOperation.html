@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>File Operation</title>
+<style type="text/css">
+
+</style>
+<script type="text/javascript" src="static/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="static/js/common.js"></script>
+<script type="text/javascript">
+
+$(function(){
+    init();
+});
+
+function init(){
+    $.ajax({
+        url         : $contextPath + "/fileOperation",
+        type        :"POST",
+        dataType    : "json",
+        success     : function(res) {
+            var fileList = res["data"]["fileList"];
+            setFileList(fileList);
+            /*for (var i = 0; i < fileList.length; i++){
+                var filename = fileList[i]["name"];
+                var originalName = fileList[i]["original_name"];
+                var url = fileList[i]["url"];
+                var id = fileList[i]["id"];
+                if (imgExtentions.indexOf(filename.substring(filename.lastIndexOf("."))) >= 0){
+                    $("#fileListDiv").append('<img src="' + $contextPath + '/fileOperation/showOrDownload/' + originalName + '?url=' + url + '" style="cursor: pointer;height: 100px;width: auto;" ' +
+                        ' title="img file click to download" onclick="download(\'' + originalName + '\',\'' + url + '\')" id="_' + id + '" /> ' +
+                        '<img src="static/img/close.png" onclick="remove(\'' + id + '\');" id="removeBtn_' + id + '"' +
+                        ' style="cursor: pointer;height: 15px;width: 15px;margin-bottom: 40px;margin-right: 10px;"/>');
+                } else {
+                    $("#fileListDiv").append('<img src="static/img/non-img_icon.png" style="cursor: pointer;height: 80px;width: auto;" ' +
+                        ' title="non-img file click to download" onclick="download(\'' + originalName + '\',\'' + url + '\')" id="_' + id + '" /> ' +
+                        '<img src="static/img/close.png" onclick="remove(\'' + id + '\');" id="removeBtn_' + id + '"' +
+                        ' style="cursor: pointer;height: 15px;width: 15px;margin-bottom: 30px;margin-right: 10px;"/>');
+                }
+            }*/
+        },
+        error       : function() {
+            alert("Init page occurs errors,please try again later!");
+        }
+    });
+}
+
+function upload(obj){
+    // return void when you choose nothing or once triggered this onchange function then a useless
+    // record will be inserted into dababase
+    if (!$(obj).val()){
+        return;
+    }
+    var files = new FormData($(obj).parent()[0]); // Very Important: 这个参数名必须和文件input标签中的name属性值一致！！！
+    // console.log(files);
+    $.ajax({
+        url         : $contextPath + "/fileOperation/upload",
+        type        : "POST",
+        dataType    : "json",
+        data        : files,
+        // params below are neccessary
+        cache       : false,
+        contentType : false,
+        processData : false,
+        async       : true,
+        success     : function(res) {
+            var fileList = res["data"];
+            setFileList(fileList);
+        },
+        error       : function() {
+            alert("Upload files occurs errors!");
+        }
+    });
+}
+
+function setFileList(fileList) {
+    var imgExtentions = ".jpg,.jpeg,.gif,.png,.bmp,.dwg";
+    for (var i = 0; i < fileList.length; i++){
+        var filename = fileList[i]["name"];
+        var originalName = fileList[i]["original_name"];
+        var url = fileList[i]["url"];
+        var id = fileList[i]["id"];
+        if (imgExtentions.indexOf(filename.substring(filename.lastIndexOf("."))) >= 0){
+            $("#fileListDiv").append('<img src="' + $contextPath + '/fileOperation/showOrDownload/' + originalName + '?url=' + url +
+                '" style="cursor: pointer;height: 100px;width: auto;" ' +
+                ' title="img file click to download" onclick="download(\'' + originalName + '\',\'' + url + '\')" id="_' + id + '" /> ' +
+                '<img src="static/img/close.png" onclick="remove(\'' + id + '\');" id="removeBtn_' + id + '"' +
+                ' style="cursor: pointer;height: 15px;width: 15px;margin-bottom: 40px;margin-right: 10px;"/>');
+        } else {
+            $("#fileListDiv").append('<img src="static/img/non-img_icon.png" style="cursor: pointer;height: 80px;width: auto;" ' +
+                ' title="non-img file click to download" onclick="download(\'' + originalName + '\',\'' + url + '\')" id="_' + id + '" /> ' +
+                '<img src="static/img/close.png" onclick="remove(\'' + id + '\');" id="removeBtn_' + id + '"' +
+                ' style="cursor: pointer;height: 15px;width: 15px;margin-bottom: 30px;margin-right: 10px;"/>');
+        }
+    }
+}
+
+function download(originalName, url){
+    location.href = $contextPath + "/fileOperation/showOrDownload/" + originalName + "?url=" + url;
+    return;
+}
+
+function remove(fileId) {
+    // remove elements in the page:
+    $("#_" + fileId).remove();
+    $("#removeBtn_" + fileId).remove();
+
+    // delete file record in DB:
+    $.ajax({
+        url         : $contextPath + "/fileOperation/delete",
+        type        : "POST",
+        dataType    : "json",
+        data        : {id:fileId},
+        success     : function(res) {
+            console.log(res);
+        },
+        error       : function() {
+            alert("remove file occurs error!");
+        }
+    });
+}
+
+function test() {
+    var imgExtentions = ".jpg,.jpeg,.gif,.png,.bmp,.dwg";
+    var tempFileName = "abc.png";
+    console.log(imgExtentions.indexOf(tempFileName.substring(tempFileName.lastIndexOf("."))) > 0); // 16 > 0 : true
+}
+
+</script>
+</head>
+<body>
+    <h2>Test File Upload and Download</h2>
+
+    <div style="height: 120px;width: auto;">
+        <div id="fileListDiv">
+            <!--
+            <img src="static/img/default_img.jpg" style="cursor: pointer;height: 100px;width: auto;"
+                 title="download" onclick="download('asdf');" id="img_1" />
+            <img src="static/img/close.png" onclick="remove('sdf');" id="removeBtn_1"
+                 style="cursor: pointer;height: 15px;width: 15px;margin-bottom: 40px;margin-right: 10px;" />
+            -->
+        </div>
+        <form id="fileForm" enctype="multipart/form-data">
+            <input type="file" id="uploadBtn" name="files" style="cursor: pointer" onchange="upload(this)" multiple/>
+        </form>
+    </div>
+    <br>
+    <button style="display: none;" onclick="test()">Test</button>
+</body>
+</html>

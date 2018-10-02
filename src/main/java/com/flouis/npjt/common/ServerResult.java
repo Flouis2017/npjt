@@ -28,6 +28,10 @@ public class ServerResult<T> implements Serializable {
         return new ServerResult(msg, true, null);
     }
 
+    public static <T> ServerResult success(T data){
+        return new ServerResult(null, true, data);
+    }
+
     public static <T> ServerResult success(String msg, T data){
         return new ServerResult(msg, true, data);
     }

@@ -27,4 +27,14 @@
          or aspect class will not be identified after starting Tomcat
      -->
     <aop:aspectj-autoproxy />
+
+    <!--
+        文件处理器，用于接收前端的文件对象
+        注意点：id必须为multipartyResolver这个字符串
+     -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- maxUploadSize属性：上传时，运行最大文件大小，以byte为单位 -->
+        <property name="maxUploadSize" value="10240000"></property>
+    </bean>
+
 </beans>

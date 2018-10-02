@@ -38,13 +38,13 @@ public class TestExportController {
 
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String toTestPage(){
+    public String toTestExportPage(){
         return "testExport";
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResult initTestPage(){
+    public ServerResult initPage(){
         return ServerResult.success("No more msg","This is original data!");
     }
 
@@ -54,6 +54,7 @@ public class TestExportController {
 //      System.out.println(request.getParameter("paramsStr")); // {"name":"林田惠","gender":"","age":""}
 //      parse param string from frontend:
         Map filterConditions = JSONObject.parseObject( request.getParameter("paramsStr") );
+//      System.out.println( "filterConditions: " + filterConditions );
         ServerResult serverResult = this.iTestExportService.getData(filterConditions);
         return serverResult;
     }

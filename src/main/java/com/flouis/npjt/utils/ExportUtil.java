@@ -22,12 +22,6 @@ import java.util.ResourceBundle;
  **/
 public class ExportUtil {
 
-    private static ResourceBundle bundle = ResourceBundle.getBundle("config.dev");
-
-    public final static String HEAD_NAME = "headName";
-
-    public final static String HEAD_SIZE = "headSize";
-
     /**
      * @param request
      * @param header
@@ -42,12 +36,12 @@ public class ExportUtil {
             String os = System.getProperty("os.name");
             String tempString = null;
             if (os.indexOf("Windows") > -1) {
-                tempString = request.getServletContext().getRealPath(bundle.getString("uploadTempPath"));
+                tempString = request.getServletContext().getRealPath(PropertyUtil.get("uploadTempPath"));
             } else {
-                String shareFolder = bundle.getString("shared.folder");
-                tempString = shareFolder + request.getContextPath() + bundle.getString("uploadTempPath");
+                String shareFolder = PropertyUtil.get("shared.folder");
+                tempString = shareFolder + request.getContextPath() + PropertyUtil.get("uploadTempPath");
             }
-//            System.out.println( "tempString: " + tempString );
+//          System.out.println( "tempString: " + tempString );
             File tempFile = new File(tempString);
             if (!tempFile.exists() && !tempFile.isDirectory()) {
                 tempFile.mkdirs();
