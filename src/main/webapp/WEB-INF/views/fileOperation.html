@@ -22,23 +22,6 @@ function init(){
         success     : function(res) {
             var fileList = res["data"]["fileList"];
             setFileList(fileList);
-            /*for (var i = 0; i < fileList.length; i++){
-                var filename = fileList[i]["name"];
-                var originalName = fileList[i]["original_name"];
-                var url = fileList[i]["url"];
-                var id = fileList[i]["id"];
-                if (imgExtentions.indexOf(filename.substring(filename.lastIndexOf("."))) >= 0){
-                    $("#fileListDiv").append('<img src="' + $contextPath + '/fileOperation/showOrDownload/' + originalName + '?url=' + url + '" style="cursor: pointer;height: 100px;width: auto;" ' +
-                        ' title="img file click to download" onclick="download(\'' + originalName + '\',\'' + url + '\')" id="_' + id + '" /> ' +
-                        '<img src="static/img/close.png" onclick="remove(\'' + id + '\');" id="removeBtn_' + id + '"' +
-                        ' style="cursor: pointer;height: 15px;width: 15px;margin-bottom: 40px;margin-right: 10px;"/>');
-                } else {
-                    $("#fileListDiv").append('<img src="static/img/non-img_icon.png" style="cursor: pointer;height: 80px;width: auto;" ' +
-                        ' title="non-img file click to download" onclick="download(\'' + originalName + '\',\'' + url + '\')" id="_' + id + '" /> ' +
-                        '<img src="static/img/close.png" onclick="remove(\'' + id + '\');" id="removeBtn_' + id + '"' +
-                        ' style="cursor: pointer;height: 15px;width: 15px;margin-bottom: 30px;margin-right: 10px;"/>');
-                }
-            }*/
         },
         error       : function() {
             alert("Init page occurs errors,please try again later!");
