@@ -1,5 +1,6 @@
 package com.flouis.npjt.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
@@ -21,6 +22,11 @@ public class ServerResult<T> implements Serializable {
         this.success    = success;
         this.data       = data;
     }
+
+    @JsonIgnore
+    public boolean isSuccess(){
+    	return this.success == true;
+	}
 
     private ServerResult(){}
 
