@@ -2,15 +2,15 @@
 # package file
 *.war
 *.ear
-# kdiff3 ignore
+# kdiff3
 *.orig
-# maven ignore
+# maven
 target/
-# eclipse ignore
+# eclipse
 .settings/
 .project
 .classpatch
-# idea ingore
+# idea
 .idea/
 /idea/
 *.ipr
@@ -22,6 +22,6 @@ target/
 *.diff
 *.patch
 *.tmp
-# system ignore
+# system
 .DS_Store
 Thumbs.db
