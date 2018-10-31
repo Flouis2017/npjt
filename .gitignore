@@ -9,7 +9,7 @@ target/
 # eclipse
 .settings/
 .project
-.classpatch
+.classpath
 # idea
 .idea/
 /idea/
@@ -21,6 +21,7 @@ target/
 *.cache
 *.diff
 *.patch
+*.path
 *.tmp
 # system
 .DS_Store
